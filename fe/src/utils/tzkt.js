@@ -48,6 +48,7 @@ export const fetchData = async () => {
           token_id: d2[i].value.token_id,
         };
       }
+      localStorage.setItem("allTokens", JSON.stringify(tokenData))
       return tokenData
     } catch (e) {
       console.log(e);

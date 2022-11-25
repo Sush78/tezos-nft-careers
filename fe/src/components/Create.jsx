@@ -3,6 +3,7 @@ import { useFilePicker } from "use-file-picker";
 import { NFTStorage, File } from "nft.storage/dist/bundle.esm.min.js";
 import { apiKey } from '../creds/creds';
 import { mintNFT } from '../utils/opertions';
+import { Header } from './Header';
 
 const client = new NFTStorage({ token: apiKey });
 
@@ -13,6 +14,11 @@ export const Create = () => {
         readAs: "ArrayBuffer",
     });
     const [name, setName] = useState("");
+    const [age, setAge] = useState(0);
+    const [contact, setContact] = useState("");
+    const [yoe, setYoe] = useState("");    // years of experience
+    const [skills, setSkills] = useState("");
+    const [latestEdu, setLatestEdu] = useState("");
     const [description, setDescription] = useState("");
     const [symbol, setSymbol] = useState("");
     const [amount, setAmount] = useState("0");
@@ -42,10 +48,12 @@ export const Create = () => {
                 decimals: 0,
                 symbol: symbol,
                 cvInfo: {
-                    yearsOfExp: 2,
-                    university: "QMUL",
-                    degree: "Postgrad",
-                    skills: ['python','solidity']
+                    name: name,
+                    yearsOfExp: yoe,
+                    degree: latestEdu,
+                    skills: skills,
+                    age: age,
+                    contact: contact
                 },
                 image: new File(
                     [filesContent[0].content],
@@ -64,7 +72,9 @@ export const Create = () => {
     };
 
     return (
-        <div>
+        <>
+        <Header />
+        <div className='main-landing-page'>
             <form className="ui form error">
                 <div
                     className={`field required ${
@@ -90,12 +100,12 @@ export const Create = () => {
                         loadingSubmit ? "disabled" : ""
                     }`}
                 >
-                    <label>Description</label>
+                    <label>About yourself</label>
                     <input
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        placeholder="A digital art piece!"
+                        placeholder="Describe yourself in one line"
                     />
                 </div>
                 {description.length > 300 ? (
@@ -149,6 +159,84 @@ export const Create = () => {
                         loadingSubmit ? "disabled" : ""
                     }`}
                 >
+                    <label>Talent Name</label>
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Type your name"
+                    />
+                </div>
+                <div
+                    className={`field required ${
+                        loadingSubmit ? "disabled" : ""
+                    }`}
+                >
+                    <label>Talent Age</label>
+                    <input
+                        type="number"
+                        value={age}
+                        onChange={(e) => setAge(e.target.value)}
+                        placeholder="Type your age"
+                    />
+                </div>
+                <div
+                    className={`field required ${
+                        loadingSubmit ? "disabled" : ""
+                    }`}
+                >
+                    <label>Contact Number</label>
+                    <input
+                        type="text"
+                        value={contact}
+                        onChange={(e) => setContact(e.target.value)}
+                        placeholder="Type your phone number"
+                    />
+                </div>
+                <div
+                    className={`field required ${
+                        loadingSubmit ? "disabled" : ""
+                    }`}
+                >
+                    <label>Years of Experience</label>
+                    <input
+                        type="number"
+                        value={yoe}
+                        onChange={(e) => setYoe(e.target.value)}
+                        placeholder="Type your years of experience"
+                    />
+                </div>
+                <div
+                    className={`field required ${
+                        loadingSubmit ? "disabled" : ""
+                    }`}
+                >
+                    <label>Skills</label>
+                    <input
+                        type="text"
+                        value={skills}
+                        onChange={(e) => setSkills(e.target.value)}
+                        placeholder="Type in your skills comma separated"
+                    />
+                </div>
+                <div
+                    className={`field required ${
+                        loadingSubmit ? "disabled" : ""
+                    }`}
+                >
+                    <label>Latest Degree</label>
+                    <input
+                        type="text"
+                        value={latestEdu}
+                        onChange={(e) => setLatestEdu(e.target.value)}
+                        placeholder="Undergrad/Postgrad"
+                    />
+                </div>
+                <div
+                    className={`field required ${
+                        loadingSubmit ? "disabled" : ""
+                    }`}
+                >
                     <label>Image</label>
                     <button
                         type="button"
@@ -178,5 +266,6 @@ export const Create = () => {
                 </button>
             </form>
         </div>
+        </>
     );
 };

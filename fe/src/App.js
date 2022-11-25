@@ -2,15 +2,17 @@ import { useState, useEffect } from "react";
 import { TokenCard } from "./components/TokenCard";
 import { collectNFT } from "./utils/opertions";
 import { fetchData } from "./utils/tzkt";
+import { Header } from "./components/Header";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
 
   const [allTokens, setAllTokens] = useState([])
-
+  const navigate = useNavigate()
+  
   useEffect(() => {
     (async () => {
       const storage = await fetchData();
-      console.log("storage: ", storage)
       setAllTokens(storage);
     })();
   }, []);
@@ -22,13 +24,20 @@ const App = () => {
       onCollect={() =>
        collectNFT({ amount: obj.amount, id: obj.token_id })
       }
+      onClick={() =>
+        navigate(`/show/${obj.token_id}`)
+      }
+      buttonText="Apply"
     />
   ));
   return (
-    <div>
-      <h1>NFT Careers</h1>
-      <div className="ui link three column grid cards">{tokens}</div>
-    </div>
+    <>
+      <Header />
+      <div className="main-landing-page">
+        <h1>Pick Companies</h1>
+        <div className="ui link three column grid cards">{tokens}</div>
+      </div>
+    </>
   )
 };
 

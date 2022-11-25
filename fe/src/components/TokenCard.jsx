@@ -1,11 +1,11 @@
 import React from 'react'
 
-export const TokenCard = ({item, onClick, onCollect}) => {
+export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) => {
     return (
         <div className="ui fluid card">
           <div className="image">
             <img
-              onClick={onClick}
+              // onClick={onClick}
               style={{ maxHeight: "200px", objectFit: "cover" }}
               src={`https://ipfs.io/ipfs/${item.image.split("ipfs://")[1]}`}
               alt={item.description}
@@ -28,7 +28,11 @@ export const TokenCard = ({item, onClick, onCollect}) => {
           <div className="extra content">
             <span className="right floated">
               <button className="ui basic button" onClick={onCollect}>
-                {item.collectable ? "Buy" : "Sold Out"}
+                {/* {item.collectable ? "Buy" : "Sold Out"} */}
+                {buttonText}
+              </button>
+              <button className="ui basic button" onClick={onClick}>
+                View Details
               </button>
             </span>
             <span>
