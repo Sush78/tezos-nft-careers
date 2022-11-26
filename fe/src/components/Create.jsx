@@ -51,7 +51,6 @@ export const Create = () => {
                 user: "talent",
                 cvInfo: {
                     name: name,
-                    user: "talent",
                     yearsOfExp: yoe,
                     degree: latestEdu,
                     skills: skills,
@@ -235,7 +234,7 @@ export const Create = () => {
                 ) : null}
 
                 <button
-                    className="ui primary basic button"
+                    className={`ui button ${loadingSubmit ? "loading" : ""}`}
                     onClick={(e) => onSubmit(e)}
                     type="submit"
                 >

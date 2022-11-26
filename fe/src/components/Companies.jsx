@@ -1,10 +1,11 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import { TokenCard } from './TokenCard';
-import { collectNFT, filterTokens } from '../utils/opertions';
 import { fetchData } from '../utils/tzkt';
 import { Header } from './Header';
 import { useNavigate } from "react-router-dom";
+import { filterTokens } from '../utils/opertions';
+import { rateTalent } from '../utils/opertions';
 
 export const Companies = () => {
     const [allTokens, setAllTokens] = useState([])
@@ -14,19 +15,22 @@ export const Companies = () => {
     useEffect(() => {
       (async () => {
         const storage = await fetchData();
-        console.log("storage: ", storage)
         setAllTokens(storage);
-        let { _talentTokens } = await filterTokens(allTokens);
-        setTalentTokens(_talentTokens);
+        const val = filterTokens(storage);
+        setTalentTokens(val._talentTokens);
       })();
     }, []);
-  
+    
+    const rateTalentWrapper = () => {
+
+    }
+
     const tokens = talentTokens.map((obj, idx) => (
       <TokenCard
         key={idx}
         item={obj}
         onCollect={() =>
-         collectNFT({ amount: obj.amount, id: obj.token_id })
+          rateTalentWrapper()
         }
         onClick={() =>
           navigate(`/show/${obj.token_id}`)

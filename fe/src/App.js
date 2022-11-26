@@ -17,20 +17,19 @@ const App = () => {
     (async () => {
       const storage = await fetchData();
       setAllTokens(storage);
-      console.log("alltoken: ", allTokens)
-      // const { _companyToken } = await filterTokens(allTokens);
-      // console.log(_companyToken);
-      // setCompanyToken(_companyToken);
-      // setCurrentAccount(await getAccount());
+      const val = filterTokens(storage);
+      setCompanyToken(val._companyTokens);
+      setCurrentAccount(await getAccount());
     })();
   }, []);
 
   const applyWrapper = async (companyId) => {
     const talentId = getTokenIdForAddress(currentAccount, allTokens)
-    await applyJob(talentId, companyId);
+    console.log("talentId: ", talentId, companyId)
+    await applyJob(companyId, talentId);
   }
 
-  const tokens = allTokens.map((obj, idx) => (
+  const tokens = companyToken.map((obj, idx) => (
     <TokenCard
       key={idx}
       item={obj}

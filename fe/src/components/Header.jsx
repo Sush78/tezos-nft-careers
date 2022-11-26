@@ -19,13 +19,16 @@ export const Header = ({ setTezos }) => {
     connectWallet()
   };
 
+  // company applications: Where companies can see who applied 
+  // Talengt applications: Where talent can see which companies theyve applied to
+
   return (
     <div className="ui menu black background-colr border-updown" style={{ marginTop: "5px" }}>
       <a href="/" className="ui header item">
-        Talent
+        Career Fair
       </a>
       <Link className="header-item item" to="/companies">
-        Companies
+        Top Talent
       </Link>
 
       {account !== "" ? (
@@ -35,6 +38,14 @@ export const Header = ({ setTezos }) => {
       ) : null}
       <Link className="header-item item" to="/create-job">
         Create Job NFT
+      </Link>
+
+      <Link className="header-item item" to="/create-job">
+        Company Applications 
+      </Link>
+
+      <Link className="header-item item" to="/create-job">
+        Talent Applications
       </Link>
 
       <div className="right menu">

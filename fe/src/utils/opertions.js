@@ -52,26 +52,28 @@ export const rateTalent = async (talentId, rating) => {
   }
 };
 
-export const filterTokens = async (allTokens) => {
+export const filterTokens = (allTokens) => {
   let _talentTokens = [];
   let _companyTokens = []; 
   for (let token in allTokens) {
-    if (token.user === "talent") {
-      _talentTokens.push(token)
-    } else {
-      _companyTokens.push(token)
+    token = allTokens[token]
+    if(token.hasOwnProperty('user')){
+      if (token.user === "talent" && token.token_id !== 0) {
+        _talentTokens.push(token)
+      } else if(token.user === "company") {
+        _companyTokens.push(token)
+      }
     }
   };
-  console.log("talent/: ", _talentTokens);
-  console.log("company/: ", _companyTokens);
   return { _talentTokens, _companyTokens }
 }
 
 export const getTokenIdForAddress = (address, allTokens) => {
   for (let token in allTokens) {
-    if (token.author === address) {
+    token = allTokens[token]
+    if (token.author === address && token.token_id !== "0") {
       return token.token_id
     } 
-    return -1
   }
+  return -1
 }
