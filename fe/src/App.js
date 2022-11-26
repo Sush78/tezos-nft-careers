@@ -14,7 +14,11 @@ const App = () => {
     (async () => {
       const storage = await fetchData();
       setAllTokens(storage);
+<<<<<<< HEAD
       console.log(storage)
+=======
+      console.log(allTokens)
+>>>>>>> 7e4094de2bd0942327825d823c926fe085087322
     })();
   }, []);
 
