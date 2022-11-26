@@ -50,6 +50,7 @@ export const Create = () => {
                 symbol: symbol,
                 cvInfo: {
                     name: name,
+                    user: user,
                     yearsOfExp: yoe,
                     degree: latestEdu,
                     skills: skills,

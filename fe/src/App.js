@@ -24,7 +24,7 @@ const App = () => {
       item={obj}
       onCollect={() =>
        //collectNFT({ amount: obj.amount, id: obj.token_id })
-       applyJob( 0, obj.token_id)
+       applyJob( , obj.token_id)
       }
       onClick={() =>
         navigate(`/show/${obj.token_id}`)
