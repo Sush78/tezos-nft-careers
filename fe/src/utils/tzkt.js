@@ -1,6 +1,7 @@
 import axios from "axios";
 import { careerFairContractAddress } from '../constants/constans'
 import { nftContractAddress } from '../constants/constans'
+import { skipNfts } from "../constants/constans";
 
 export const fetchStorageCareerFair = async () => {
   const res = await axios.get(
@@ -36,17 +37,22 @@ export const fetchData = async () => {
       const d2 = response1.data;
       let tokenData = [];
       for (let i = 0; i < d1.length; i++) {
-        const s = bytes2Char(d2[i].value.token_info[""]).split("//").at(-1);
+        try{
+          const s = bytes2Char(d2[i].value.token_info[""]).split("//").at(-1);
+          if(skipNfts.includes(s)) continue
 
-        const res = await axios.get("https://ipfs.io/ipfs/" + s);
+          const res = await axios.get("https://ipfs.io/ipfs/" + s);
 
-        const l1 = d1[i].value;
-        const l2 = res.data;
-        tokenData[i] = {
-          ...l1,
-          ...l2,
-          token_id: d2[i].value.token_id,
-        };
+          const l1 = d1[i].value;
+          const l2 = res.data;
+          tokenData[i] = {
+            ...l1,
+            ...l2,
+            token_id: d2[i].value.token_id,
+          };
+        } catch(error){
+          console.log(error)
+        }
       }
       localStorage.setItem("allTokens", JSON.stringify(tokenData))
       return tokenData
