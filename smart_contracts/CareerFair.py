@@ -1,7 +1,10 @@
 import smartpy as sp
 import NFT
-
+ 
 FA2 = sp.io.import_script_from_url("https://smartpy.io/dev/templates/FA2.py")
+
+class NFT(FA2.FA2):
+    pass
 
 class CareerFair(sp.Contract):
     def __init__(self, token, metadata, admin):
@@ -10,9 +13,50 @@ class CareerFair(sp.Contract):
             metadata = metadata,
             admin = admin,
             data = sp.big_map(tkey=sp.TNat, tvalue=sp.TRecord(holder=sp.TAddress, author = sp.TAddress, amount=sp.TNat, token_id=sp.TNat, collectable=sp.TBool)),
+            # keeps track of what talent has applied for one company
+            applyMap = sp.map(tkey = sp.TNat, tvalue = sp.TList(t=sp.TNat)),
+            # keeps track of what company a talent has applied to
+            compMap = sp.map(tkey = sp.TNat, tvalue = sp.TList(t=sp.TNat)),
+            # keeps track of the talents rating by companies
+            ratingMap = sp.map(tkey = sp.TNat, tvalue = sp.TList(t=sp.TNat)),
             token_id = 0,
         )
 
+    @sp.entry_point
+    def rateTalent(self, params):
+        sp.set_type(params.talentId, sp.TNat)
+        sp.set_type(params.rating, sp.TNat)
+        talentId = params.talentId
+        rating = params.rating
+
+        # check talentId is valid
+        sp.verify(talentId > 0, "Invalid Talent Id")
+
+        sp.if self.data.ratingMap.contains(talentId) == False:
+            self.data.ratingMap[talentId] = []
+        self.data.ratingMap[talentId].push(rating)
+
+    @sp.entry_point
+    def apply(self, params):
+        sp.set_type(params.tokenId, sp.TNat)
+        sp.set_type(params.companyId, sp.TNat)
+        talentId = params.tokenId 
+        companyId = params.companyId
+        # assertions
+        sp.verify(talentId > 0, "Invalid talent Id")
+        sp.verify(params.companyId > 0, "Invalid company Id")
+        sp.verify(talentId != companyId, "Talent Id can not be the same as company Id")
+        
+        # Push company Id to map
+        sp.if self.data.applyMap.contains(companyId) ==  False:
+            self.data.applyMap[companyId] = []
+        self.data.applyMap[companyId].push(talentId)
+
+        # Push talent Id to map
+        sp.if self.data.compMap.contains(talentId) ==  False:
+            self.data.compMap[talentId] = []
+        self.data.compMap[talentId].push(companyId)
+        
     @sp.entry_point
     def mint(self, params):
         sp.verify((params.amount > 0))
@@ -78,15 +122,18 @@ def test():
     scenario += token_contract
 
     scenario.h1("Career Fair")
-    marketplace = CareerFair(token_contract.address, sp.utils.metadata_of_url("ipfs://QmW8jPMdBmFvsSEoLWPPhaozN6jGQFxxkwuMLtVFqEy6Fb"), admin.address)
-    scenario += marketplace
+    careerFair = CareerFair(token_contract.address, sp.utils.metadata_of_url("ipfs://QmW8jPMdBmFvsSEoLWPPhaozN6jGQFxxkwuMLtVFqEy6Fb"), admin.address)
+    scenario += careerFair
 
-    scenario.h1("Mint")
-    scenario += marketplace.mint(sp.record(amount = 100000000, metadata = sp.pack("ipfs://bafyreibwl5hhjgrat5l7cmjlv6ppwghm6ijygpz2xor2r6incfcxnl7y3e/metadata.json"))).run(sender = admin, valid = False)
-    scenario += token_contract.set_administrator(marketplace.address).run(sender = admin)
-    scenario += marketplace.mint(sp.record(amount = 100000000, metadata = sp.pack("ipfs://bafyreibwl5hhjgrat5l7cmjlv6ppwghm6ijygpz2xor2r6incfcxnl7y3e/metadata.json"))).run(sender = admin)
-    scenario += marketplace.mint(sp.record(amount = 5600000, metadata = sp.pack("123423"))).run(sender = mark)
-    scenario.h1("Collect")
-    scenario += marketplace.collect(sp.record(token_id = 1)).run(sender = elon, amount = sp.mutez(5600000))
+    scenario.h1("Apply function")
+    talentId = 1
+    companyId = 5
+    careerFair.apply(tokenId=talentId, companyId=companyId)
+   
+    scenario.h1("Rating function")
+    careerFair.rateTalent(talentId=1, rating=4)
+    careerFair.rateTalent(talentId=1, rating=5)
+    careerFair.rateTalent(talentId=1, rating=7)
+    careerFair.rateTalent(talentId=5, rating=3)
 
-    scenario += marketplace.collect_management_rewards(sp.record(amount = sp.mutez(1000), address = admin.address)).run(sender = admin)
+   
