@@ -29,7 +29,6 @@ export const CreateJobDesc = () => {
         if (
             name === "" ||
             jobDesc === "" ||
-            symbol === "" ||
             amount === "" ||
             !/^-?\d+$/.test(amount) ||
             filesContent.length === 0
