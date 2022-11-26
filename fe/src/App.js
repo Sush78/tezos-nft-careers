@@ -15,6 +15,7 @@ const App = () => {
     (async () => {
       const storage = await fetchData();
       setAllTokens(storage);
+      console.log(allTokens)
     })();
   }, []);
 

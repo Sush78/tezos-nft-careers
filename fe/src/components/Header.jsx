@@ -30,9 +30,12 @@ export const Header = ({ setTezos }) => {
 
       {account !== "" ? (
         <Link className="header-item item" to="/create">
-          Create NFT
+          Create CV NFT
         </Link>
       ) : null}
+      <Link className="header-item item" to="/create-job">
+        Create Job NFT
+      </Link>
 
       <div className="right menu">
         {account === "" ? (

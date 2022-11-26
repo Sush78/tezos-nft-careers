@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Create } from "./components/Create";
 import { Companies } from "./components/Companies";
 import { DetailedView } from "./components/DetailedView";
+import { CreateJobDesc } from "./components/CreateJobDesc";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/create",
     element: <Create />
+  },
+  {
+    path: "/create-job",
+    element: <CreateJobDesc />
   },
   {
     path: "/companies",
