@@ -1,2 +1,2 @@
-export const nftContractAddress = "KT1RLC6aVFcpPdGAYQxfanVn14ZnFVvf2uYc"
-export const careerFairContractAddress =  "KT1Vg9fJpWwqEGuFEQzSFwjodCDmoqPKxm2J" //"KT1EqQuXWPCdyA2DRqjSDHATMn63WhJ7H53i"
+export const nftContractAddress = "KT19d7zVKEPZ8ECyUmYjjkoHKouwrfWc89Ye"  //"KT1RLC6aVFcpPdGAYQxfanVn14ZnFVvf2uYc"
+export const careerFairContractAddress =  "KT1Py1J8qnWZUTj3K99mEdeFdAYHthrXUot3" //"KT1EqQuXWPCdyA2DRqjSDHATMn63WhJ7H53i"
