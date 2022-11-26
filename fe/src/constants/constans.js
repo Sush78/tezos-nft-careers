@@ -1,5 +1,8 @@
-export const nftContractAddress =  "KT19d7zVKEPZ8ECyUmYjjkoHKouwrfWc89Ye" 
-export const careerFairContractAddress =  "KT1Py1J8qnWZUTj3K99mEdeFdAYHthrXUot3" 
+export const nftContractAddress =  "KT1KSgaHjTyiY2reVU4zA1V7uXd8SPNGs1A3" 
+export const careerFairContractAddress = "KT18sQkTMmKRC8843qJPXqsGUtrcUwJfwoCp"
+
+// semi old careerFair: "KT1Py1J8qnWZUTj3K99mEdeFdAYHthrXUot3" 
+// semi old NFT: "KT19d7zVKEPZ8ECyUmYjjkoHKouwrfWc89Ye" 
 
 // Old config 
 
