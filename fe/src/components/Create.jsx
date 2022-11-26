@@ -51,7 +51,7 @@ export const Create = () => {
                 user: "talent",
                 cvInfo: {
                     name: name,
-                    user: user,
+                    user: "talent",
                     yearsOfExp: yoe,
                     degree: latestEdu,
                     skills: skills,

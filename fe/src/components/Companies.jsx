@@ -1,13 +1,14 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import { TokenCard } from './TokenCard';
-import { collectNFT } from '../utils/opertions';
+import { collectNFT, filterTokens } from '../utils/opertions';
 import { fetchData } from '../utils/tzkt';
 import { Header } from './Header';
 import { useNavigate } from "react-router-dom";
 
 export const Companies = () => {
     const [allTokens, setAllTokens] = useState([])
+    const [talentTokens, setTalentTokens] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -15,10 +16,12 @@ export const Companies = () => {
         const storage = await fetchData();
         console.log("storage: ", storage)
         setAllTokens(storage);
+        let { _talentTokens } = await filterTokens(allTokens);
+        setTalentTokens(_talentTokens);
       })();
     }, []);
   
-    const tokens = allTokens.map((obj, idx) => (
+    const tokens = talentTokens.map((obj, idx) => (
       <TokenCard
         key={idx}
         item={obj}

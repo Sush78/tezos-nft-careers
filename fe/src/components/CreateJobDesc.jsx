@@ -20,7 +20,7 @@ export const CreateJobDesc = () => {
     const [role, setRole] = useState("");
     const [skills, setSkills] = useState("");
     const [symbol, setSymbol] = useState("");
-    const [amount, setAmount] = useState("0");
+    const [amount, setAmount] = useState("1");
     const [error, setError] = useState("");
     const [loadingSubmit, setLoading] = useState(false);
 
@@ -29,7 +29,6 @@ export const CreateJobDesc = () => {
         if (
             name === "" ||
             jobDesc === "" ||
-            symbol === "" ||
             amount === "" ||
             !/^-?\d+$/.test(amount) ||
             filesContent.length === 0

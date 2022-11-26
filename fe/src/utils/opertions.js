@@ -1,5 +1,6 @@
 import { tezos } from "./tezos";
 import { careerFairContractAddress } from "../constants/constans";
+import { getAccount } from "./wallet";
 
 export const mintNFT = async ({ amount, metadata }) => {
   try {
@@ -50,3 +51,27 @@ export const rateTalent = async (talentId, rating) => {
     throw err;
   }
 };
+
+export const filterTokens = async (allTokens) => {
+  let _talentTokens = [];
+  let _companyTokens = []; 
+  for (let token in allTokens) {
+    if (token.user === "talent") {
+      _talentTokens.push(token)
+    } else {
+      _companyTokens.push(token)
+    }
+  };
+  console.log("talent/: ", _talentTokens);
+  console.log("company/: ", _companyTokens);
+  return { _talentTokens, _companyTokens }
+}
+
+export const getTokenIdForAddress = (address, allTokens) => {
+  for (let token in allTokens) {
+    if (token.author === address) {
+      return token.token_id
+    } 
+    return -1
+  }
+}
