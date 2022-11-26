@@ -1,7 +1,18 @@
-#root,
+#root{
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  z-index: 5;
+}
+#c {
+  position: absolute;
+  z-index: 0;
+  height: 1400px;
+}
 html,
 body {
   height: 100%;
+  background: transparent;
 }
 
 .main-landing-page{
@@ -10,8 +21,28 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background: transparent;
+}
+
+h1{
+  color: #AAFF00;
 }
 
 .nft-info{
   margin-top: 1.25rem;
+}
+
+.background-colr{
+  background: transparent !important;
+  border: 1px solid #AAFF00 !important;
+  color: #17d42d !important;
+}
+
+.content, .extra, .header, .meta, .description, .header-item {
+  color: #17d42d !important;
+}
+
+.border-updown{
+  border-left: none !important;
+  border-right: none !important;
 }

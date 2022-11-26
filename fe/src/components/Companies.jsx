@@ -4,9 +4,11 @@ import { TokenCard } from './TokenCard';
 import { collectNFT } from '../utils/opertions';
 import { fetchData } from '../utils/tzkt';
 import { Header } from './Header';
+import { useNavigate } from "react-router-dom";
 
 export const Companies = () => {
     const [allTokens, setAllTokens] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
       (async () => {
@@ -22,6 +24,9 @@ export const Companies = () => {
         item={obj}
         onCollect={() =>
          collectNFT({ amount: obj.amount, id: obj.token_id })
+        }
+        onClick={() =>
+          navigate(`/show/${obj.token_id}`)
         }
         buttonText="Rate"
       />

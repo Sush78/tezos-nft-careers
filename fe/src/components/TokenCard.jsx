@@ -2,7 +2,7 @@ import React from 'react'
 
 export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) => {
     return (
-        <div className="ui fluid card">
+        <div className="ui fluid card background-colr">
           <div className="image">
             <img
               // onClick={onClick}
@@ -14,7 +14,7 @@ export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) =
           <div className="content">
             <div className="right floated">
               Price:
-              <div style={{ color: "black" }}>{item.amount}</div>
+              <div>{item.amount}</div>
             </div>
             <div className="header">{item.name}</div>
             <div className="meta">{item.symbol}</div>
@@ -27,17 +27,17 @@ export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) =
     
           <div className="extra content">
             <span className="right floated">
-              <button className="ui basic button" onClick={onCollect}>
+              <button className="ui positive basic button" onClick={onCollect}>
                 {/* {item.collectable ? "Buy" : "Sold Out"} */}
                 {buttonText}
               </button>
-              <button className="ui basic button" onClick={onClick}>
+              <button className="ui primary basic button" onClick={onClick}>
                 View Details
               </button>
             </span>
             <span>
               Token ID:
-              <div style={{ color: "black" }}>{item.token_id}</div>
+              <div>{item.token_id}</div>
             </span>
           </div>
         </div>

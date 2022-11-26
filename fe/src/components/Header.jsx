@@ -20,27 +20,27 @@ export const Header = ({ setTezos }) => {
   };
 
   return (
-    <div className="ui menu black" style={{ marginTop: "5px" }}>
+    <div className="ui menu black background-colr border-updown" style={{ marginTop: "5px" }}>
       <a href="/" className="ui header item">
         Talent
       </a>
-      <Link className="item" to="/companies">
+      <Link className="header-item item" to="/companies">
         Companies
       </Link>
 
       {account !== "" ? (
-        <Link className="item" to="/create">
+        <Link className="header-item item" to="/create">
           Create NFT
         </Link>
       ) : null}
 
       <div className="right menu">
         {account === "" ? (
-          <a href="/#" className="item" onClick={onClick}>
+          <a href="/#" className="header-item item" onClick={onClick}>
             Connect Wallet
           </a>
         ) : (
-          <a href="/#" className="item" onClick={onClick}>
+          <a href="/#" className="header-item item" onClick={onClick}>
             Disconnect Wallet
           </a>
         )}
