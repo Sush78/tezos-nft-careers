@@ -4,6 +4,7 @@ import { collectNFT } from "./utils/opertions";
 import { fetchData } from "./utils/tzkt";
 import { Header } from "./components/Header";
 import { useNavigate } from "react-router-dom";
+import { copyAndMint } from "./utils/tzkt";
 
 const App = () => {
 
@@ -22,7 +23,10 @@ const App = () => {
       key={idx}
       item={obj}
       onCollect={() =>
-       collectNFT({ amount: obj.amount, id: obj.token_id })
+       //collectNFT({ amount: obj.amount, id: obj.token_id })
+       copyAndMint(obj)
+       // Mint copy of NFT
+       // Using address of talent, fetch token id, pull its metadata, mint a copy of that nft to job description address
       }
       onClick={() =>
         navigate(`/show/${obj.token_id}`)
