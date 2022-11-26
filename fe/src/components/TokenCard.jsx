@@ -1,6 +1,13 @@
 import React from 'react'
+import { useState } from 'react';
 
 export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) => {
+
+    const [ddval, setDdval] = useState("")
+    const rateWrapper = () => {
+      localStorage.setItem("ddval",ddval)
+      onCollect()
+    }
     return (
         <div className="ui fluid card background-colr">
           <div className="image">
@@ -27,10 +34,30 @@ export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) =
     
           <div className="extra content">
             <span className="right floated">
+            <select
+              onChange={(e) => setDdval(e.currentTarget.value)}
+              className="ant-input selectBox"
+              style={{width: 200}}
+              placeholder="Select a person"
+              value={ddval}
+              defaultValue={1}
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            {buttonText==="Rate" &&
+              <button className="ui positive basic button" onClick={rateWrapper}>
+                {/* {item.collectable ? "Buy" : "Sold Out"} */}
+                {buttonText}
+              </button>}
+              {buttonText==="Apply" &&
               <button className="ui positive basic button" onClick={onCollect}>
                 {/* {item.collectable ? "Buy" : "Sold Out"} */}
                 {buttonText}
-              </button>
+              </button>}
               <button className="ui primary basic button" onClick={onClick}>
                 View Details
               </button>

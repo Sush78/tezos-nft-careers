@@ -21,8 +21,10 @@ export const Companies = () => {
       })();
     }, []);
     
-    const rateTalentWrapper = () => {
-
+    const rateTalentWrapper = (tokenId) => {
+      const rating = localStorage.getItem("ddval")
+      localStorage.setItem("ddval", 1)
+      rateTalent(tokenId, rating)
     }
 
     const tokens = talentTokens.map((obj, idx) => (
@@ -30,7 +32,7 @@ export const Companies = () => {
         key={idx}
         item={obj}
         onCollect={() =>
-          rateTalentWrapper()
+          rateTalentWrapper(obj.token_id)
         }
         onClick={() =>
           navigate(`/show/${obj.token_id}`)

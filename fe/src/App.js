@@ -25,7 +25,6 @@ const App = () => {
 
   const applyWrapper = async (companyId) => {
     const talentId = getTokenIdForAddress(currentAccount, allTokens)
-    console.log("talentId: ", talentId, companyId)
     await applyJob(companyId, talentId);
   }
 
