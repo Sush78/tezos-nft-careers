@@ -54,7 +54,3 @@ export const fetchData = async () => {
       console.log(e);
     }
 };
-
-export const copyAndMint = async (tokenData) => {
-  
-} 

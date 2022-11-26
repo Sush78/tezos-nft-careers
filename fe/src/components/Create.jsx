@@ -24,6 +24,7 @@ export const Create = () => {
     const [amount, setAmount] = useState("0");
     const [error, setError] = useState("");
     const [loadingSubmit, setLoading] = useState(false);
+    const [linkedInUrl, setLinkedInUrl] = useState("");
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -53,7 +54,8 @@ export const Create = () => {
                     degree: latestEdu,
                     skills: skills,
                     age: age,
-                    contact: contact
+                    contact: contact,
+                    linkedInUrl: linkedInUrl
                 },
                 image: new File(
                     [filesContent[0].content],
@@ -237,6 +239,19 @@ export const Create = () => {
                         loadingSubmit ? "disabled" : ""
                     }`}
                 >
+                    <label>LinkedIn Url</label>
+                    <input
+                        type="text"
+                        value={linkedInUrl}
+                        onChange={(e) => setLinkedInUrl(e.target.value)}
+                        placeholder="https://www.linkedin.com/in/myself"
+                    />
+                </div>
+                <div
+                    className={`field required ${
+                        loadingSubmit ? "disabled" : ""
+                    }`}
+                >
                     <label>Image</label>
                     <button
                         type="button"
@@ -258,7 +273,7 @@ export const Create = () => {
                 ) : null}
 
                 <button
-                    className={`ui button ${loadingSubmit ? "loading" : ""}`}
+                    className="ui primary basic button"
                     onClick={(e) => onSubmit(e)}
                     type="submit"
                 >
