@@ -25,8 +25,6 @@ const App = () => {
       onCollect={() =>
        //collectNFT({ amount: obj.amount, id: obj.token_id })
        copyAndMint(obj)
-       // Mint copy of NFT
-       // Using address of talent, fetch token id, pull its metadata, mint a copy of that nft to job description address
       }
       onClick={() =>
         navigate(`/show/${obj.token_id}`)
