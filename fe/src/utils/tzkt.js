@@ -1,7 +1,6 @@
 import axios from "axios";
 import { careerFairContractAddress } from '../constants/constans'
 import { nftContractAddress } from '../constants/constans'
-import { skipNfts } from "../constants/constans";
 
 export const fetchStorageCareerFair = async () => {
   const res = await axios.get(
@@ -46,7 +45,6 @@ export const fetchData = async () => {
       for (let i = 0; i < d1.length; i++) {
         try{
           const s = bytes2Char(d2[i].value.token_info[""]).split("//").at(-1);
-          if(skipNfts.includes(s)) continue
 
           const res = await axios.get("https://ipfs.io/ipfs/" + s);
 
