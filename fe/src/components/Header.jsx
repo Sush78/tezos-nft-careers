@@ -25,9 +25,9 @@ export const Header = ({ setTezos }) => {
 
   return (
     <div className="ui menu black background-colr border-updown" style={{ marginTop: "5px" }}>
-      <a href="/" className="ui header item">
+      <Link className="header-item item" to="/">
         Career Fair
-      </a>
+      </Link>
       <Link className="header-item item" to="/companies">
         Top Talent
       </Link>

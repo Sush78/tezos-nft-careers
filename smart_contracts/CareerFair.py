@@ -1,6 +1,4 @@
 import smartpy as sp
-import NFT
- 
 FA2 = sp.io.import_script_from_url("https://smartpy.io/dev/templates/FA2.py")
 
 class NFT(FA2.FA2):
@@ -136,4 +134,7 @@ def test():
     careerFair.rateTalent(talentId=1, rating=7)
     careerFair.rateTalent(talentId=5, rating=3)
 
-   
+    scenario.h1("Minting function")    
+    scenario += token_contract.set_administrator(careerFair.address).run(sender = admin)
+    careerFair.mint(sp.record(amount = 100000000, metadata = sp.pack("ipfs://bafyreibwl5hhjgrat5l7cmjlv6ppwghm6ijygpz2xor2r6incfcxnl7y3e/metadata.json"))).run(sender = admin)
+    careerFair.mint(sp.record(amount = 100000000, metadata = sp.pack("ipfs://bafyreibwl5hhjgrat5l7cmjlv6ppwghm6ijygpz2xor2r6incfcxnl7y3e/metadata.json"))).run(sender = mark)

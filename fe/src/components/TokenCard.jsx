@@ -13,7 +13,7 @@ export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) =
           <div className="image">
             <img
               // onClick={onClick}
-              style={{ maxHeight: "250px",minHeight: "200px", objectFit: "cover" }}
+              style={{ maxHeight: "200px", objectFit: "cover" }}
               src={`https://ipfs.io/ipfs/${item.image.split("ipfs://")[1]}`}
               alt={item.description}
             />
@@ -34,7 +34,7 @@ export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) =
     
           <div className="extra content">
             <span className="right floated">
-            <select
+            {buttonText==="Rate" && <select
               onChange={(e) => setDdval(e.currentTarget.value)}
               className="ant-input selectBox"
               style={{width: 200}}
@@ -47,7 +47,7 @@ export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) =
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
-            </select>
+            </select>}
             {buttonText==="Rate" &&
               <button className="ui positive basic button" onClick={rateWrapper}>
                 {/* {item.collectable ? "Buy" : "Sold Out"} */}
@@ -61,10 +61,6 @@ export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) =
               <button className="ui primary basic button" onClick={onClick}>
                 View Details
               </button>
-            </span>
-            <span>
-              Token ID:
-              <div>{item.token_id}</div>
             </span>
           </div>
         </div>
