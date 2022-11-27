@@ -1,7 +1,6 @@
 import axios from "axios";
 import { careerFairContractAddress } from '../constants/constans'
 import { nftContractAddress } from '../constants/constans'
-import { skipNfts } from "../constants/constans";
 
 export const fetchStorageCareerFair = async () => {
   const res = await axios.get(
@@ -33,13 +32,19 @@ export const fetchData = async () => {
       const response1 = await axios.get(
         `https://api.ghostnet.tzkt.io/v1/contracts/${nftContractAddress}/bigmaps/token_metadata/keys`
       );
+      const response2 = await axios.get(
+        `https://api.ghostnet.tzkt.io/v1/contracts/${careerFairContractAddress}/storage`
+      );
+      localStorage.setItem("allmaps",{})
       const d1 = response.data;
       const d2 = response1.data;
+      const applymap = response2.data.applyMap
+      const companyMap = response2.data.compMap
+      const ratingMap = response2.data.ratingMap
       let tokenData = [];
       for (let i = 0; i < d1.length; i++) {
         try{
           const s = bytes2Char(d2[i].value.token_info[""]).split("//").at(-1);
-          if(skipNfts.includes(s)) continue
 
           const res = await axios.get("https://ipfs.io/ipfs/" + s);
 
@@ -55,12 +60,11 @@ export const fetchData = async () => {
         }
       }
       localStorage.setItem("allTokens", JSON.stringify(tokenData))
+      localStorage.setItem("companyMap", JSON.stringify(companyMap))
+      localStorage.setItem("applyMap", JSON.stringify(applymap))
+      localStorage.setItem("ratingMap", JSON.stringify(ratingMap))
       return tokenData
     } catch (e) {
       console.log(e);
     }
 };
-
-export const copyAndMint = async (tokenData) => {
-  
-} 

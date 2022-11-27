@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Header } from './Header'
 import { useParams } from 'react-router-dom';
-import { collectNFT } from '../utils/opertions';
+import { rateTalent } from '../utils/opertions';
+import { Button, Icon } from 'semantic-ui-react'
 
 export const DetailedView = () => {
     const { id } = useParams();
     const [data, setData] = useState(null);
+    const [ddval, setDdval] = useState("")
 
     useEffect(() => {
         const temp = JSON.parse(localStorage.getItem("allTokens"));
@@ -14,6 +16,19 @@ export const DetailedView = () => {
           setData(tok);
         }
     }, [id]);
+
+    const rateTalentWrapper = (tokenId) => {
+      const rating = localStorage.getItem("ddval")
+      localStorage.setItem("ddval", 1)
+      rateTalent(tokenId, rating)
+    }
+
+    const openLinkedIn = (link) => {
+      window.open(
+        link,
+        '_blank'
+      )
+    }
 
     return (
       <>
@@ -32,94 +47,61 @@ export const DetailedView = () => {
               <div className="seven wide column container center">
                 <h3>CV Info</h3>
                 {data.cvInfo.name &&<div className="ui">
-                  <h3 className="ui right floated header">{data.cvInfo.name}</h3>
+                  <h3 className="ui right floated header ui-info">{data.cvInfo.name}</h3>
                   <h3 className="ui left aligned header">Talent Name</h3>
                 </div>}
                 {data.cvInfo.age &&<div className="ui">
-                  <h3 className="ui right floated header">{data.cvInfo.age}</h3>
+                  <h3 className="ui right floated header ui-info">{data.cvInfo.age}</h3>
                   <h3 className="ui left aligned header">Talent Age</h3>
                 </div>}
                 {data.cvInfo.contact &&<div className="ui">
-                  <h3 className="ui right floated header">{data.cvInfo.contact}</h3>
+                  <h3 className="ui right floated header ui-info">{data.cvInfo.contact}</h3>
                   <h3 className="ui left aligned header">Talent Contact Info</h3>
                 </div>}
                 {data.cvInfo.yearsOfExp &&<div className="ui">
-                  <h3 className="ui right floated header">{data.cvInfo.yearsOfExp}</h3>
+                  <h3 className="ui right floated header ui-info">{data.cvInfo.yearsOfExp}</h3>
                   <h3 className="ui left aligned header">Years of Experience</h3>
                 </div>}
                 {data.cvInfo.degree &&<div className="ui">
-                  <h3 className="ui right floated header">{data.cvInfo.degree}</h3>
+                  <h3 className="ui right floated header ui-info">{data.cvInfo.degree}</h3>
                   <h3 className="ui left aligned header">Last Degree</h3>
                 </div>}
                 {data.cvInfo.skills &&<div className="ui">
-                  <h3 className="ui right floated header">{data.cvInfo.skills}</h3>
-                  <h3 className="ui left aligned header">Last Degree</h3>
+                  <h3 className="ui right floated header ui-info">{data.cvInfo.skills}</h3>
+                  <h3 className="ui left aligned header">Technical Skills</h3>
                 </div>}
                 <div className='nft-info'>
-                    <h3>NFT Info</h3>
-                    <div className="ui">
-                    <h3 className="ui right floated header">{data.name}</h3>
-                    <h3 className="ui left aligned header">Name</h3>
-                    </div>
-                    <div className="ui">
-                    <h3 className="ui right floated header">{data.symbol}</h3>
-                    <h3 className="ui left aligned header">Symbol</h3>
-                    </div>
-                    <div
-                    className="ui "
-                    onClick={() => {
-                        navigator.clipboard.writeText(data.holder + "");
-                    }}
+                    <Button color='linkedin' onClick={() =>
+                            openLinkedIn(data.cvInfo.linkedInUrl)
+                        }>
+                      <Icon name='linkedin' /> View Talent LinkedIn
+                    </Button>
+                    <div>
+                    <select
+                      onChange={(e) => setDdval(e.currentTarget.value)}
+                      className="ant-input"
+                      style={{width: 200}}
+                      placeholder="Select a person"
+                      value={ddval}
+                      defaultValue={1}
                     >
-                    <h3
-                        className="ui right floated header green"
-                        style={{ cursor: "pointer" }}
-                        data-content="Copy to clipboard"
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                    <button
+                      className="fluid ui button basic green"
+                      onClick={() =>
+                        rateTalentWrapper(data.token_id)
+                      }
                     >
-                        {data.holder?.slice(0, 6) + "..."}
-                    </h3>
-                    <h3 className="ui left aligned header">Holder</h3>
+                      Rate
+                    </button>
                     </div>
-                    <div
-                    className="ui "
-                    onClick={() => {
-                        navigator.clipboard.writeText(data.author + "");
-                    }}
-                    >
-                    <h3
-                        className="ui right floated header green"
-                        style={{ cursor: "pointer" }}
-                        data-content="Copy to clipboard"
-                    >
-                        {data.author?.slice(0, 6) + "..."}
-                    </h3>
-                    <h3 className="ui left aligned header">Author</h3>
-                    </div>
-                    <div className="ui">
-                    <h3 className="ui right floated header">{data.amount}</h3>
-                    <h3 className="ui left aligned header">Price</h3>
-                    </div>
-                    <div className="ui">
-                    <h3 className="ui right floated header">{data.token_id}</h3>
-                    <h3 className="ui left aligned header">Token ID</h3>
-                    </div>
-                    {/*...*/}
                 </div>
                 </div>
-            </div>
-            <div className="ui">
-              <button
-                className="fluid ui button basic green"
-                onClick={() =>
-                  data.collectable &&
-                    collectNFT({
-                        amount: data.amount,
-                        id: data.token_id,
-                    })
-                }
-              >
-                {data.collectable ? "Buy" : "Sold Out"}
-              </button>
             </div>
           </>
         ) : null}

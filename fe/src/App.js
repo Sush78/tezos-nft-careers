@@ -1,34 +1,43 @@
 import { useState, useEffect } from "react";
 import { TokenCard } from "./components/TokenCard";
-import { collectNFT } from "./utils/opertions";
+import { applyJob, collectNFT, filterTokens, getTokenIdForAddress } from "./utils/opertions";
 import { fetchData } from "./utils/tzkt";
 import { Header } from "./components/Header";
 import { useNavigate } from "react-router-dom";
-import { copyAndMint } from "./utils/tzkt";
+import { getAccount } from "./utils/wallet";
 
 const App = () => {
 
+  const [currentAccount, setCurrentAccount] = useState("");
   const [allTokens, setAllTokens] = useState([])
+  const [companyToken, setCompanyToken] = useState([])
   const navigate = useNavigate()
   
   useEffect(() => {
     (async () => {
       const storage = await fetchData();
       setAllTokens(storage);
-      console.log(allTokens)
+      const val = filterTokens(storage);
+      setCompanyToken(val._companyTokens);
+      setCurrentAccount(await getAccount());
     })();
   }, []);
 
-  const tokens = allTokens.map((obj, idx) => (
+  const applyWrapper = async (companyId) => {
+    const talentId = getTokenIdForAddress(currentAccount, allTokens)
+    await applyJob(companyId, talentId);
+  }
+
+  const tokens = companyToken.map((obj, idx) => (
     <TokenCard
       key={idx}
       item={obj}
       onCollect={() =>
        //collectNFT({ amount: obj.amount, id: obj.token_id })
-       copyAndMint(obj)
+       applyWrapper(obj.token_id)
       }
       onClick={() =>
-        navigate(`/show/${obj.token_id}`)
+        navigate(`/show-job/${obj.token_id}`)
       }
       buttonText="Apply"
     />

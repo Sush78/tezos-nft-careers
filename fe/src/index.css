@@ -1,5 +1,6 @@
 #root{
   height: 100%;
+  width: 100%;
   background: transparent;
   position: absolute;
   z-index: 5;
@@ -8,6 +9,7 @@
   position: absolute;
   z-index: 0;
   height: 1400px;
+  width: 100vw;
 }
 html,
 body {
@@ -38,11 +40,25 @@ h1{
   color: #17d42d !important;
 }
 
-.content, .extra, .header, .meta, .description, .header-item, label {
+.content, .extra, .header, .meta, .description, .header-item, label, h3 {
   color: #17d42d !important;
 }
 
 .border-updown{
   border-left: none !important;
   border-right: none !important;
+}
+
+.ui-info{
+  text-transform: capitalize !important;
+}
+
+.ui-label{
+  text-transform: uppercase !important;
+  color: #00cfe6e5 !important;
+}
+
+.ant-input{
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
 }

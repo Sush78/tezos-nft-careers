@@ -13,19 +13,23 @@ export const Header = ({ setTezos }) => {
     })();
   }, []);
 
-  const onClick = (event) => {
+  const onClick = async (event) => {
     event.preventDefault();
-    if(account !== "") return
-    connectWallet()
+    await connectWallet();
+    const account = await getAccount();
+    setAccount(account)
   };
+
+  // company applications: Where companies can see who applied 
+  // Talengt applications: Where talent can see which companies theyve applied to
 
   return (
     <div className="ui menu black background-colr border-updown" style={{ marginTop: "5px" }}>
-      <a href="/" className="ui header item">
-        Talent
-      </a>
+      <Link className="header-item item" to="/">
+        Career Fair
+      </Link>
       <Link className="header-item item" to="/companies">
-        Companies
+        Top Talent
       </Link>
 
       {account !== "" ? (
@@ -37,6 +41,14 @@ export const Header = ({ setTezos }) => {
         Create Job NFT
       </Link>
 
+      <Link className="header-item item" to="/applications-recv">
+        Company Applications 
+      </Link>
+
+      <Link className="header-item item" to="/companies-applied">
+        Talent Applications
+      </Link>
+
       <div className="right menu">
         {account === "" ? (
           <a href="/#" className="header-item item" onClick={onClick}>
@@ -44,7 +56,7 @@ export const Header = ({ setTezos }) => {
           </a>
         ) : (
           <a href="/#" className="header-item item" onClick={onClick}>
-            Disconnect Wallet
+            {`Disconnect Wallet: ${account}`} 
           </a>
         )}
       </div>
