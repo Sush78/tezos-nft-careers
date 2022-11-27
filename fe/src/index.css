@@ -9,6 +9,7 @@
   position: absolute;
   z-index: 0;
   height: 1400px;
+  width: 100vw;
 }
 html,
 body {

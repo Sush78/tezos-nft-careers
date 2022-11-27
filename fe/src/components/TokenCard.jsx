@@ -13,7 +13,7 @@ export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) =
           <div className="image">
             <img
               // onClick={onClick}
-              style={{ minHeight: "150px", objectFit: "cover" }}
+              style={{ maxHeight: "250px",minHeight: "200px", objectFit: "cover" }}
               src={`https://ipfs.io/ipfs/${item.image.split("ipfs://")[1]}`}
               alt={item.description}
             />
