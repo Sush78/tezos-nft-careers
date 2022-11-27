@@ -9,6 +9,8 @@ import { Companies } from "./components/Companies";
 import { DetailedView } from "./components/DetailedView";
 import { CreateJobDesc } from "./components/CreateJobDesc";
 import { JobDetailedView } from "./components/JobDetailedView";
+import { CompaniesAppliedTo } from "./components/CompaniesAppliedTo";
+import { ApplicationsReceived } from "./components/ApplicationsReceived";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
   {
     path: "/show-job/:id",
     element: <JobDetailedView />
+  },
+  {
+    path: "/companies-applied",
+    element: <CompaniesAppliedTo />
+  },
+  {
+    path: "/applications-recv",
+    element: <ApplicationsReceived />
   }
 ]);
 

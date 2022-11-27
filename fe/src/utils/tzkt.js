@@ -33,8 +33,15 @@ export const fetchData = async () => {
       const response1 = await axios.get(
         `https://api.ghostnet.tzkt.io/v1/contracts/${nftContractAddress}/bigmaps/token_metadata/keys`
       );
+      const response2 = await axios.get(
+        `https://api.ghostnet.tzkt.io/v1/contracts/${careerFairContractAddress}/storage`
+      );
+      localStorage.setItem("allmaps",{})
       const d1 = response.data;
       const d2 = response1.data;
+      const applymap = response2.data.applymap
+      const companyMap = response2.data.compMap
+      const ratingMap = response2.data.ratingMap
       let tokenData = [];
       for (let i = 0; i < d1.length; i++) {
         try{
@@ -55,6 +62,9 @@ export const fetchData = async () => {
         }
       }
       localStorage.setItem("allTokens", JSON.stringify(tokenData))
+      localStorage.setItem("companyMap", JSON.stringify(companyMap))
+      localStorage.setItem("applyMap", JSON.stringify(applymap))
+      localStorage.setItem("ratingMap", JSON.stringify(ratingMap))
       return tokenData
     } catch (e) {
       console.log(e);

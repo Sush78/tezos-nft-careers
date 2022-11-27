@@ -58,6 +58,11 @@ export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) =
                 {/* {item.collectable ? "Buy" : "Sold Out"} */}
                 {buttonText}
               </button>}
+              {buttonText==="Applied" &&
+              <button className="ui positive basic disabled button" onClick={onCollect}>
+                {/* {item.collectable ? "Buy" : "Sold Out"} */}
+                {buttonText}
+              </button>}
               <button className="ui primary basic button" onClick={onClick}>
                 View Details
               </button>

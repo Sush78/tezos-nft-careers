@@ -41,11 +41,11 @@ export const Header = ({ setTezos }) => {
         Create Job NFT
       </Link>
 
-      <Link className="header-item item" to="/create-job">
+      <Link className="header-item item" to="/applications-recv">
         Company Applications 
       </Link>
 
-      <Link className="header-item item" to="/create-job">
+      <Link className="header-item item" to="/companies-applied">
         Talent Applications
       </Link>
 
