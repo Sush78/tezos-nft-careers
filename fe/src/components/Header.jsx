@@ -13,10 +13,11 @@ export const Header = ({ setTezos }) => {
     })();
   }, []);
 
-  const onClick = (event) => {
+  const onClick = async (event) => {
     event.preventDefault();
-    if(account !== "") return
-    connectWallet()
+    await connectWallet();
+    const account = await getAccount();
+    setAccount(account)
   };
 
   // company applications: Where companies can see who applied 
@@ -55,7 +56,7 @@ export const Header = ({ setTezos }) => {
           </a>
         ) : (
           <a href="/#" className="header-item item" onClick={onClick}>
-            Disconnect Wallet
+            {`Disconnect Wallet: ${account}`} 
           </a>
         )}
       </div>

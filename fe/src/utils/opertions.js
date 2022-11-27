@@ -1,6 +1,5 @@
 import { tezos } from "./tezos";
 import { careerFairContractAddress } from "../constants/constans";
-import { getAccount } from "./wallet";
 
 export const mintNFT = async ({ amount, metadata }) => {
   try {
