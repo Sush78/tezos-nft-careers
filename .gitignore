@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # creds
-creds/creds.js
+fe/src/creds.js

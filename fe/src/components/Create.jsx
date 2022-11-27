@@ -1,9 +1,11 @@
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 import { useFilePicker } from "use-file-picker";
 import { NFTStorage, File } from "nft.storage/dist/bundle.esm.min.js";
 import { apiKey } from '../creds/creds';
 import { mintNFT } from '../utils/opertions';
 import { Header } from './Header';
+import { LINKEDIN_URL, LINKEDIN_STATE } from '../constants/constans';
+import { Button, Icon } from 'semantic-ui-react'
 
 const client = new NFTStorage({ token: apiKey });
 
@@ -25,6 +27,29 @@ export const Create = () => {
     const [error, setError] = useState("");
     const [loadingSubmit, setLoading] = useState(false);
     const [linkedInUrl, setLinkedInUrl] = useState("");
+    const [popup, setPopup] = useState(null)
+    const [receiveProviderToken, setReceiveProviderToken] = useState(null)
+
+    const signInWithLinkedin = () => {
+        setPopup(window.open(LINKEDIN_URL, '_blank', 'width=600,height=600'))
+        window.addEventListener('message', receiveLinkedInMessage)
+    }
+
+    const receiveLinkedInMessage = ({ origin, data: { state, code, error, ...rest} }) => {
+        if (origin !== window.location.origin || state !== LINKEDIN_STATE) return
+        if (code) {
+            setReceiveProviderToken({ provider: "LinkedIn", token: code })
+            console.log(code)
+        } else if (error && !['user_cancelled_login', 'user_cancelled_authorize'].includes(error)) {
+            setReceiveProviderToken({ provider: "LinkedIn", error: { error, ...rest} })
+        }
+        popup.close()
+      }
+
+    useEffect(() => {
+        window.removeEventListener('message', receiveLinkedInMessage)
+        popup && popup.close()
+    }, [])
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -232,7 +257,13 @@ export const Create = () => {
                         <p>{error}</p>
                     </div>
                 ) : null}
-
+                <div className='ant-input'>
+                    <Button color='linkedin' onClick={() =>
+                            signInWithLinkedin()
+                        }>
+                        <Icon name='linkedin' /> Sign In with LiknedIn
+                    </Button>
+                </div>
                 <button
                     className={`ui button ${loadingSubmit ? "loading" : ""}`}
                     onClick={(e) => onSubmit(e)}
