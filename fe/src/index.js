@@ -8,6 +8,7 @@ import { Create } from "./components/Create";
 import { Companies } from "./components/Companies";
 import { DetailedView } from "./components/DetailedView";
 import { CreateJobDesc } from "./components/CreateJobDesc";
+import { JobDetailedView } from "./components/JobDetailedView";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/show/:id",
     element: <DetailedView />
+  },
+  {
+    path: "/show-job/:id",
+    element: <JobDetailedView />
   }
 ]);
 

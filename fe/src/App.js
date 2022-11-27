@@ -38,7 +38,7 @@ const App = () => {
        applyWrapper(obj.token_id)
       }
       onClick={() =>
-        navigate(`/show/${obj.token_id}`)
+        navigate(`/show-job/${obj.token_id}`)
       }
       buttonText="Apply"
     />

@@ -53,7 +53,7 @@ export const DetailedView = () => {
                 </div>}
                 {data.cvInfo.skills &&<div className="ui">
                   <h3 className="ui right floated header">{data.cvInfo.skills}</h3>
-                  <h3 className="ui left aligned header">Last Degree</h3>
+                  <h3 className="ui left aligned header">Technical Skills</h3>
                 </div>}
                 <div className='nft-info'>
                     <h3>NFT Info</h3>
