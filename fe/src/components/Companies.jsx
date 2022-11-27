@@ -23,7 +23,6 @@ export const Companies = () => {
 
     const sortTalentTokens = (allTokens) => {
       const ratingsMap = JSON.parse(localStorage.getItem("ratingMap"))
-      console.log(ratingsMap)
       let sortedTokens = []
       for(let tok in allTokens){
         let avgRating = 0
@@ -63,7 +62,7 @@ export const Companies = () => {
       <>
         <Header />
         <div className="main-landing-page">
-          <h1>Pick Talent</h1>
+          <h1>Top Talent</h1>
           <div className="ui link three column grid cards">{tokens}</div>
         </div>
       </>
