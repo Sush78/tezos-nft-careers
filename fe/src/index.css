@@ -40,11 +40,25 @@ h1{
   color: #17d42d !important;
 }
 
-.content, .extra, .header, .meta, .description, .header-item, label {
+.content, .extra, .header, .meta, .description, .header-item, label, h3 {
   color: #17d42d !important;
 }
 
 .border-updown{
   border-left: none !important;
   border-right: none !important;
+}
+
+.ui-info{
+  text-transform: capitalize !important;
+}
+
+.ui-label{
+  text-transform: uppercase !important;
+  color: #00cfe6e5 !important;
+}
+
+.ant-input{
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
 }

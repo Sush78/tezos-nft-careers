@@ -130,7 +130,7 @@ export const CreateJobDesc = () => {
                 >
                     <label>Salary Range</label>
                     <input
-                        type="number"
+                        type="text"
                         value={salary}
                         onChange={(e) => setSalary(e.target.value)}
                         placeholder="Type your annual salary range"

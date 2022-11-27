@@ -9,7 +9,7 @@ import { rateTalent } from '../utils/opertions';
 
 export const Companies = () => {
     const [allTokens, setAllTokens] = useState([])
-    const [talentTokens, setTalentTokens] = useState([])
+    const [sortedToks, setSortedToks] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -17,17 +17,36 @@ export const Companies = () => {
         const storage = await fetchData();
         setAllTokens(storage);
         const val = filterTokens(storage);
-        setTalentTokens(val._talentTokens);
+        sortTalentTokens(val._talentTokens)
       })();
     }, []);
+
+    const sortTalentTokens = (allTokens) => {
+      const ratingsMap = JSON.parse(localStorage.getItem("ratingMap"))
+      console.log(ratingsMap)
+      let sortedTokens = []
+      for(let tok in allTokens){
+        let avgRating = 0
+        let token = allTokens[tok]
+        if(!ratingsMap.hasOwnProperty(token.token_id)) avgRating = 1
+        else{
+          const ratingList = ratingsMap[token.token_id]
+          avgRating = ratingList.reduce((a, b) => parseInt(a) + parseInt(b), 0) / ratingList.length;
+        }
+        token["avgRating"] = avgRating
+        sortedTokens.push(token)
+      }
+      sortedTokens = sortedTokens.sort((tokA, tokB) => tokB.avgRating - tokA.avgRating)
+      setSortedToks(sortedTokens)
+    }
     
     const rateTalentWrapper = (tokenId) => {
       const rating = localStorage.getItem("ddval")
       localStorage.setItem("ddval", 1)
-      rateTalent(tokenId, rating)
+      rateTalent(rating, tokenId)
     }
 
-    const tokens = talentTokens.map((obj, idx) => (
+    const tokens = sortedToks.map((obj, idx) => (
       <TokenCard
         key={idx}
         item={obj}

@@ -70,7 +70,6 @@ export const filterTokens = (allTokens) => {
 export const getTokenIdForAddress = (address, allTokens) => {
   if(!address) address = localStorage.getItem("activeAccount")
   if(!allTokens) allTokens = localStorage.getItem("allTokens")
-  console.log(allTokens)
   for (let token in allTokens) {
     token = allTokens[token]
     if (token.author === address && token.token_id !== "0") {

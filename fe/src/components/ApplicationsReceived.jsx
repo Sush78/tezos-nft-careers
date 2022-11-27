@@ -15,13 +15,15 @@ export const ApplicationsReceived = () => {
     const navigate = useNavigate()
 
     const filterBasedTokens = async(allTokens) => {
-        const applyMap = JSON.parse(localStorage.getItem("applyMap"))
+        const temp = localStorage.getItem("applyMap")
+        let applyMap = {}
+        if(temp !== undefined) applyMap = JSON.parse(temp)
         const companyId = getTokenIdForAddress(currentAccount, allTokens)
         const talentTokenList = applyMap[companyId]
         let filteredTokens = []
         for(let tok in allTokens){
             let token = allTokens[tok]
-            if(talentTokenList.includes(token.token_id)){
+            if(talentTokenList && talentTokenList.length && talentTokenList.includes(token.token_id)){
                 filteredTokens.push(token)
             }
         }
@@ -31,7 +33,7 @@ export const ApplicationsReceived = () => {
     const rateTalentWrapper = (tokenId) => {
         const rating = localStorage.getItem("ddval")
         localStorage.setItem("ddval", 1)
-        rateTalent(tokenId, rating)
+        rateTalent(rating, tokenId)
     }
 
     useEffect(() => {
@@ -60,7 +62,7 @@ export const ApplicationsReceived = () => {
       <>
         <Header />
         <div className="main-landing-page">
-          <h1>Jobs Applied</h1>
+          <h1>Applications Received</h1>
           <div className="ui link three column grid cards">{tokens}</div>
         </div>
       </>

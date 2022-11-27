@@ -19,10 +19,10 @@ export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) =
             />
           </div>
           <div className="content">
-            <div className="right floated">
-              Price:
-              <div>{item.amount}</div>
-            </div>
+            {item.avgRating && <div className="right floated">
+              Rating
+              <div>{item.avgRating}</div>
+            </div>}
             <div className="header">{item.name}</div>
             <div className="meta">{item.symbol}</div>
             <div className="description">
@@ -39,7 +39,7 @@ export const TokenCard = ({item, onClick, onCollect, buttonText, onViewlarge}) =
               className="ant-input selectBox"
               style={{width: 200}}
               placeholder="Select a person"
-              value={ddval}
+              // value={ddval}
               defaultValue={1}
             >
               <option value="1">1</option>

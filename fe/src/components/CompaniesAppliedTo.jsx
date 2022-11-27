@@ -21,7 +21,7 @@ export const CompaniesAppliedTo = () => {
         let filteredTokens = []
         for(let tok in allTokens){
             let token = allTokens[tok]
-            if(companyTokenList.includes(token.token_id)){
+            if(companyTokenList && companyTokenList.length && companyTokenList.includes(token.token_id)){
                 filteredTokens.push(token)
             }
         }
@@ -42,21 +42,23 @@ export const CompaniesAppliedTo = () => {
       localStorage.setItem("ddval", 1)
       rateTalent(tokenId, rating)
     }
-
-    const tokens = requiredTokens.map((obj, idx) => (
-      <TokenCard
-        key={idx}
-        item={obj}
-        onCollect={() =>
-          rateTalentWrapper(obj.token_id)
-        }
-        onClick={() =>
-          navigate(`/show-job/${obj.token_id}`)
-        }
-        buttonText="Applied"
-        noShow="True"
-      />
-    ));
+    let tokens = []
+    if(requiredTokens && requiredTokens.length){
+      tokens = requiredTokens.map((obj, idx) => (
+        <TokenCard
+          key={idx}
+          item={obj}
+          onCollect={() =>
+            rateTalentWrapper(obj.token_id)
+          }
+          onClick={() =>
+            navigate(`/show-job/${obj.token_id}`)
+          }
+          buttonText="Applied"
+          noShow="True"
+        />
+      ));
+    }
     return (
       <>
         <Header />

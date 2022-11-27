@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { Header } from './Header'
 import { useParams } from 'react-router-dom';
-import { collectNFT } from '../utils/opertions';
+import { getTokenIdForAddress } from '../utils/opertions';
+import { applyJob } from '../utils/opertions';
 
 export const JobDetailedView = () => {
     const { id } = useParams();
     const [data, setData] = useState(null);
+    const [currentAccount, setCurrentAccount] = useState("");
+    const [allTokens, setAllTokens] = useState([])
 
     useEffect(() => {
         const temp = JSON.parse(localStorage.getItem("allTokens"));
+        setCurrentAccount(JSON.parse(localStorage.getItem("currentAccount")))
+        setAllTokens(temp)
         const tok = temp.find((ele) => ele.token_id === id)
         if (temp) {
           setData(tok);
         }
     }, [id]);
+
+    const applyWrapper = async (companyId) => {
+      const talentId = getTokenIdForAddress(currentAccount, allTokens)
+      await applyJob(companyId, talentId);
+    }
 
     return (
       <>
@@ -32,44 +42,40 @@ export const JobDetailedView = () => {
               <div className="seven wide column container center">
                 <h3>{`${data.name} job description!`}</h3>
                 {data.name &&<div className="ui">
-                  <h3 className="ui right floated header">{data.name}</h3>
-                  <h3 className="ui left aligned header">Company Name</h3>
+                  <h3 className="ui right floated header ui-info">{data.name}</h3>
+                  <h3 className="ui left aligned header ui-label">Company name:</h3>
                 </div>}
                 {data.jobInfo.role &&<div className="ui">
-                  <h3 className="ui right floated header">{data.jobInfo.role}</h3>
-                  <h3 className="ui left aligned header">Job Role</h3>
+                  <h3 className="ui right floated header ui-info">{data.jobInfo.role}</h3>
+                  <h3 className="ui left aligned header ui-label">Job Role:</h3>
                 </div>}
                 {data.description &&<div className="ui">
-                  <p className="ui right floated header">{data.description}</p>
-                  <h3 className="ui left aligned header">Job Description</h3>
+                  <p className="ui right floated header ui-info">{data.description}</p>
+                  <h3 className="ui left aligned header ui-label">Job Description:</h3>
                 </div>}
                 {data.jobInfo.skills &&<div className="ui">
-                  <h3 className="ui right floated header">{data.jobInfo.skills}</h3>
-                  <h3 className="ui left aligned header">Skills Required</h3>
+                  <h3 className="ui right floated header ui-info">{data.jobInfo.skills}</h3>
+                  <h3 className="ui left aligned header ui-label">Skills Required:</h3>
                 </div>}
                 {data.jobInfo.salary&&<div className="ui">
-                  <h3 className="ui right floated header">{data.jobInfo.salary}</h3>
-                  <h3 className="ui left aligned header">Salary</h3>
+                  <h3 className="ui right floated header ui-info">{data.jobInfo.salary}</h3>
+                  <h3 className="ui left aligned header ui-label">Salary:</h3>
                 </div>}
                 {data.jobInfo.contact &&<div className="ui">
-                  <h3 className="ui right floated header">{data.jobInfo.contact}</h3>
-                  <h3 className="ui left aligned header">Company/Recruiter Contact</h3>
+                  <h3 className="ui right floated header ui-info">{data.jobInfo.contact}</h3>
+                  <h3 className="ui left aligned header ui-label">Company/Recruiter Contact:</h3>
                 </div>}
+                <div className="ui">
+                  <button
+                    className="fluid ui button basic green"
+                    onClick={() =>
+                      applyWrapper(data.token_id)
+                    }
+                  >
+                    Apply
+                  </button>
                 </div>
-            </div>
-            <div className="ui">
-              <button
-                className="fluid ui button basic green"
-                onClick={() =>
-                  data.collectable &&
-                    collectNFT({
-                        amount: data.amount,
-                        id: data.token_id,
-                    })
-                }
-              >
-                {data.collectable ? "Buy" : "Sold Out"}
-              </button>
+                </div>
             </div>
           </>
         ) : null}

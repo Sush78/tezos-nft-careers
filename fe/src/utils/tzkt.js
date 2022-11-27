@@ -39,7 +39,7 @@ export const fetchData = async () => {
       localStorage.setItem("allmaps",{})
       const d1 = response.data;
       const d2 = response1.data;
-      const applymap = response2.data.applymap
+      const applymap = response2.data.applyMap
       const companyMap = response2.data.compMap
       const ratingMap = response2.data.ratingMap
       let tokenData = [];
