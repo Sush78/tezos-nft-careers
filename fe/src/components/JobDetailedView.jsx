@@ -30,7 +30,7 @@ export const JobDetailedView = () => {
                 />
               </div>
               <div className="seven wide column container center">
-                <h3>{`${data.name} job description!`}</h3>
+                <h3 className='ui centre header'>{`${data.name} job description!`}</h3>
                 {data.name &&<div className="ui">
                   <h3 className="ui right floated header">{data.name}</h3>
                   <h3 className="ui left aligned header">Company Name</h3>
