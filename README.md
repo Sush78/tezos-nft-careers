@@ -1,3 +1,6 @@
+# A 24 Hour Tezos Hackathon project. Tech Stack: Smartpy to write smart contracts on the tezos blockchain for the backend, taquito and axios to connect the front end to the blockchain, react for the front end.
+
+
 ##### NFT martket place as a career fair* 
 OTHR is a complete Web3 HR hub to meaningfully create bonds between talent and teams. OTHR provides the Hiring, Social Networking, and Transparent systems for the bonds to build web3.
 
